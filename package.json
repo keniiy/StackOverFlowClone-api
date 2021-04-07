@@ -2,17 +2,28 @@
   "name": "stackflowclone",
   "version": "1.0.0",
   "description": "A Stack Overflow Clone",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js --exec babel-node --presets babel-preset-env",
+    "start": "nodemon index.js --exec babel-node --presets babel-preset-env",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "helmet": "^4.4.1",
+    "jest": "^26.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "logger": "0.0.1",
+    "mongoose": "^5.12.3",
+    "morgan": "^1.10.0",
     "nodejs": "0.0.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3",
+    "validatorjs": "^3.22.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
