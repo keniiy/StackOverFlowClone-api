@@ -13,9 +13,9 @@ module.exports = {
         });
     
         if (validator.fails()) {
-          return res.status(400).json({
-              status: false,
-              message: validator.errors.all()
+            return errorResponse(res, 400, {
+                status: false,
+                message: validator.errors.all()
             });
         }
 
@@ -53,5 +53,20 @@ module.exports = {
             message: false,
             message: allErrors
         });
+      },
+
+      ValidateSignIn(req, res, next) {
+        const validator = new validatorJs(req.body, {
+          password: 'required',
+          email: 'required|email'
+        });
+    
+        if (validator.fails()) {
+          return errorResponse(res, 400, {
+              status: false,
+              message: validator.errors.all()
+          });
+        }
+        return next();
       },
 };

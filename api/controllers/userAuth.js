@@ -25,9 +25,45 @@ module.exports = {
 
   async SignIn(req, res, next) {
     try {
-      return successResponse(res, 200, 'sign in');
-    } catch (error) {
-      return errorResponse(res, 500, error.message);
-    }
-  }
+        const user = await model.User.findOne({ email: req.body.email }).select(
+          '+password'
+        );
+  
+        if (!user) {
+          return errorResponse(res, 401, {
+              status: false,
+              message: 'Password or UserName is incorrect'
+          });
+        }
+        const confirm = user.comparePassword(req.body.password);
+        if (!confirm) {
+          return errorResponse(res, 401, {
+              status: false,
+              message: 'Invalid credentials'
+          });
+        }
+        const token = await generateToken(user);
+        
+        const userInfo = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email
+          };
+
+        return successResponse(res, 200, {
+          message: 'successfully logged in',
+          data: {
+              userInfo,
+              token
+            }
+        });
+      } catch (error) {
+        return errorResponse(res, 500, {
+            status: true,
+            message: 500
+        });
+      }
+    },
+
 };

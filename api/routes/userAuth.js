@@ -12,6 +12,7 @@ Router.post('/Signup',
 )
 
 Router.post('/SignIn',
+validation.ValidateSignIn,
 controller.SignIn
 )
 
