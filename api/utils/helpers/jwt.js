@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { JWTSecret } = require('../../config/keys');
-const model = require('../../models')
+const { JWTSecret } = require('../../../config/keys');
+const model = require('../../../models')
 
 async function generateToken(user) {
   const payload = {
