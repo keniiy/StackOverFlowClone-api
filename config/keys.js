@@ -1,7 +1,7 @@
-require('dotenv').config()
+require('dotenv').config();
 
-module.export = {
-    TEST_DB: process.env.TEST_DB,
-    DATA_DB: process.env.DATA_DB,
-    JWT_SECRET: process.env.JWT_SECRET
-}
+module.exports = {
+  TEST_DB: process.env.TEST_DB,
+  DATA_DB: process.env.DATABASE_URI,
+  JWTSecret: process.env.JWT_Secret
+};
