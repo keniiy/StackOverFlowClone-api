@@ -14,7 +14,7 @@
 
 // module.exports = app;
 
-const server = require('./api/routes/server');
+const server = require('./api/routes/index');
 
 const db = require('./config/mongoDb');
 
