@@ -8,8 +8,8 @@ module.exports = {
         const validator = new validatorJs(req.body, {
           password: 'required|min:6',
           email: 'required|email',
-          firstName: 'required',
-          lastName: 'required'
+          firstName: 'required|string',
+          lastName: 'required|string'
         });
     
         if (validator.fails()) {
@@ -69,4 +69,24 @@ module.exports = {
         }
         return next();
       },
+
+      async validateUserToken(req, res, next) {
+        const { authorization } = req.headers;
+        if (!authorization) {
+          return errorResponse(res, 401, {
+              status: false,
+              message: 'token required'
+          });
+        }
+        const user = await decodeToken(authorization);
+        if (!user) {
+          return errorResponse(res, 401, {
+              status: false,
+              message: 'Invalid User Token'
+          });
+        }
+        req.user = user;
+        console.log(user);
+        return next();
+      }
 };

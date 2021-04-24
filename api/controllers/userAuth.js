@@ -1,6 +1,6 @@
 const { successResponse, errorResponse } = require('../utils/helpers/response');
 const { generateToken, decodeToken } = require('../utils/helpers/jwt')
-const model = require('../../models')
+const model = require('../../models/index')
 
 module.exports = {
   async Signup(req, res) {
