@@ -29,6 +29,9 @@ const userSchema = new Schema(
       notifications: {
         type: Array
       },
+      score: {
+        type: Number
+      },
       time : {
         type : Date, 
         default: Date.now 

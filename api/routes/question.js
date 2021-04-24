@@ -15,5 +15,11 @@ router.get('/',
     controller.getAllQue
 );
 
+router.post('/questionUpVote/:id',
+    userValidators.validateUserToken,
+    validation.validateQue,
+    controller.upVoteQue
+);
+
 
 module.exports = router;

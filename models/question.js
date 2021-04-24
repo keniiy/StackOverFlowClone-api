@@ -28,12 +28,16 @@ const questionSchema = new Schema(
     },
     answers: [
       {
-        description: {
+        answer: {
           type: String
         },
         userId: {
           type: mongoose.Schema.Types.ObjectId
-        }
+        },
+        vote: {
+          type: Number,
+          default: 0
+        },
       }
     ],
     time : {
