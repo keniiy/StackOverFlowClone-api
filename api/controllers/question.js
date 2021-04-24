@@ -55,7 +55,7 @@ module.exports = {
         _id: id,
         voters: { $all: [user._id] }
       });
-      if (question === null) {
+      if (!question) {
         const upVoteQue = await model.Question.findOneAndUpdate(
           { _id: id },
           { $push: { voters: user._id }, $inc: { vote: 1 } },
@@ -79,4 +79,38 @@ module.exports = {
       });
     }
   },
+
+  async downVoteQue(req, res) {
+    const { id } = req.params;
+    const { user } = req;
+    console.log('here');
+    try {
+      const question = await model.Question.findOne({
+        _id: id,
+        voters: { $all: [user._id] }
+      });
+      if (!question) {
+        const upVoteQue = await model.Question.findOneAndUpdate(
+          { _id: id },
+          { $push: { voters: user._id }, $inc: { vote: -1 } },
+          { new: true }
+        );
+        return successResponse(res, 200, {
+          status: true,
+          message: 'Successfully up down question',
+          data: upVoteQue
+        });
+      } else {
+        return errorResponse(res, 400, {
+          status: false,
+          message: 'You have already un voted'
+        });
+      }
+    } catch (error) {
+      return errorResponse(res, 500, {
+        status: false,
+        message: 500
+      });
+    }
+  }
 };

@@ -21,5 +21,10 @@ router.post('/questionUpVote/:id',
     controller.upVoteQue
 );
 
+router.post('/questionUpVote/:id',
+    userValidators.validateUserToken,
+    validation.validateQue,
+    controller.downVoteQue
+);
 
 module.exports = router;
