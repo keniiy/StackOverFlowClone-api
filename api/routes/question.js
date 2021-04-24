@@ -12,7 +12,7 @@ router.post('/askQuestion',
 );
 
 router.get('/',
-    
+    controller.getAllQue
 );
 
 
