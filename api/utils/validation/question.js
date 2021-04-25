@@ -12,10 +12,7 @@ module.exports = {
     });
 
     if (validator.fails()) {
-      return errorResponse(res, 400, {
-          status: false,
-          message: validator.errors.all()
-      });
+      return errorResponse(res, 400, validator.errors.all());
     }
     return next();
   },
@@ -25,17 +22,11 @@ module.exports = {
       const { id } = req.params;
       const question = await model.Question.findOne({ _id: id });
       if (!question) {
-        return errorResponse(res, 404, {
-          status: false,
-          message: 'Question does not exist'
-        });
+        return errorResponse(res, 404, 'Question does not exist');
       }
       return next();
     } catch (error) {
-      return errorResponse (res, 500, {
-        status: false,
-        message: 500
-      });
+      return errorResponse (res, 500, error.message);
     }
   }
 };

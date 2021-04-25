@@ -13,10 +13,7 @@ module.exports = {
         });
     
         if (validator.fails()) {
-            return errorResponse(res, 400, {
-                status: false,
-                message: validator.errors.all()
-            });
+            return errorResponse(res, 400, validator.errors.all());
         }
 
         try {
@@ -32,10 +29,7 @@ module.exports = {
           }
           );
         } catch (error) {
-            return errorResponse(res, 500, {
-                status: false,
-                message: 500
-            });
+            return errorResponse(res, 500, error.message);
         }
       },
 
@@ -46,13 +40,8 @@ module.exports = {
         if (regex.exec(password) !== null) {
           return next();
         }
-        const allErrors = {
-          password: ['Password must have a special character'],
-        };
-        return errorResponse(res, 400, {
-            message: false,
-            message: allErrors
-        });
+        const error = 'Password must have a special character';
+        return errorResponse(res, 400, error);
       },
 
       ValidateSignIn(req, res, next) {
@@ -62,10 +51,7 @@ module.exports = {
         });
     
         if (validator.fails()) {
-          return errorResponse(res, 400, {
-              status: false,
-              message: validator.errors.all()
-          });
+          return errorResponse(res, 400, validator.errors.all());
         }
         return next();
       },
@@ -73,17 +59,11 @@ module.exports = {
       async validateUserToken(req, res, next) {
         const { authorization } = req.headers;
         if (!authorization) {
-          return errorResponse(res, 401, {
-              status: false,
-              message: 'token required'
-          });
+          return errorResponse(res, 401,'token required');
         }
         const user = await decodeToken(authorization);
         if (!user) {
-          return errorResponse(res, 401, {
-              status: false,
-              message: 'Invalid User Token'
-          });
+          return errorResponse(res, 401,'Invalid User Token');
         }
         req.user = user;
         console.log(user);

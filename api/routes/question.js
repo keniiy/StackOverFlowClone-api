@@ -21,7 +21,7 @@ router.post('/questionUpVote/:id',
     controller.upVoteQue
 );
 
-router.post('/questionUpVote/:id',
+router.post('/questionDownVote/:id',
     userValidators.validateUserToken,
     validation.validateQue,
     controller.downVoteQue
