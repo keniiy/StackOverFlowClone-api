@@ -23,11 +23,7 @@ module.exports = {
           if (!user) {
             return next();
           }
-          return errorResponse( res, 400, {
-              status: false,
-              message: 'User already registered with email',
-          }
-          );
+          return errorResponse( res, 400, 'User already registered with email');
         } catch (error) {
             return errorResponse(res, 500, error.message);
         }

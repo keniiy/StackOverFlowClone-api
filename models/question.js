@@ -37,7 +37,7 @@ const questionSchema = new Schema(
         vote: {
           type: Number,
           default: 0
-        },
+        }
       }
     ],
     time : {

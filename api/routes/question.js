@@ -27,4 +27,9 @@ router.post('/questionDownVote/:id',
     controller.downVoteQue
 );
 
+router.post('/answer/:id',
+    userValidators.validateUserToken,
+    controller.answerQuestion
+);
+
 module.exports = router;

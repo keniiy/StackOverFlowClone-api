@@ -86,5 +86,24 @@ module.exports = {
     } catch (error) {
       return errorResponse(res, 500, error.message);
     }
+  },
+
+  async answerQuestion(req, res) {
+    const { id } = req.params;
+    const { user } = req;
+    const { answer } = req.body;
+    try {
+      const answeredQuestion = await model.Question.findOneAndUpdate(
+        { _id: id },
+        {
+          $push: { answers: [{ answer: answer, userId: user._id }] }
+        },
+
+        { new: true }
+      );
+      return successResponse(res, 200, 'Successfully answered question', answeredQuestion);
+    } catch (error) {
+      return errorResponse(res, 500, error.message);
+    }
   }
 };
