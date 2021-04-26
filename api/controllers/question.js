@@ -105,5 +105,28 @@ module.exports = {
     } catch (error) {
       return errorResponse(res, 500, error.message);
     }
-  }
+  },
+
+  async upVoteAnswer(req, res) {
+    const { id } = req.params;
+    const { user } = req;
+    try {
+      const answer = await model.Question.findOne({
+        'answers._id': id,
+        'answers.voters': { $all: [user._id] }
+      });console.log(answer);
+      if (!answer) {
+        const upVoteAns = await model.Question.findOneAndUpdate(
+          { 'answers._id': id },
+          { $push: { 'answers.voters': user._id }, $inc: { 'answers.vote': 1 } },
+          { new: true }
+        );
+        return successResponse(res, 200, 'Successfully up voted Answer', upVoteAns);
+      } else {
+        return errorResponse(res, 400, 'You can only up vote once');
+      }
+    } catch (error) {
+      return errorResponse(res, 500, error.message);
+    }
+  },
 };

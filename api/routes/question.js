@@ -32,4 +32,13 @@ router.post('/answer/:id',
     controller.answerQuestion
 );
 
+router.post('/answerUpVote/:id',
+    userValidators.validateUserToken,
+    controller.upVoteAnswer
+);
+
+router.post('/answerDownVote/:id',
+    userValidators.validateUserToken,
+);
+
 module.exports = router;
